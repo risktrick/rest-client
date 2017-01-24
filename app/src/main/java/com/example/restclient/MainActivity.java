@@ -9,5 +9,21 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        thread.start();
     }
+
+    private Thread thread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            HttpHelper httpHelper = new HttpHelper();
+            String response = httpHelper.openUrl("http://example.com");
+
+            if (response != null) {
+                new LoggerConsole().log(response);
+            }
+        }
+    });
+
+
 }
