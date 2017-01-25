@@ -1,11 +1,8 @@
 package com.example.restclient;
 
 import android.util.Log;
-
 import com.example.restclient.model.JsonParser;
-
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -18,11 +15,7 @@ import static org.junit.Assert.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Log.class})
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
+public class JsonParserUnitTest {
 
     @Before
     public void setup() {
@@ -36,7 +29,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void parseOneObjectTestModel() {
+    public void parseOneTestModel() {
         JsonParser parser = new JsonParser();
         String response = "{name:\"John\", age:\"32\"}";
         ILogger logger = new LoggerConsole();
@@ -44,7 +37,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void parseArrayTestModel() {
+    public void parseArrayTestModelNewMethod() {
         JsonParser parser = new JsonParser();
         String response = "[{name:\"John\", age:\"32\"}, {name:\"Mike\", age:\"45\"}]";
         ILogger logger = new LoggerConsole();
@@ -60,7 +53,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void parseSourcesUmorili() {
+    public void parseSources() {
         JsonParser parser = new JsonParser();
         String response = "[[{\"site\":\"bash.im\",\"name\":\"bash\",\"url\":\"http://bash.im\",\"parsel\":\".text\",\"encoding\":\"windows-1251\",\"linkpar\":\"/quote/\",\"desc\":\"Цитатник Рунета\"},{\"site\":\"bash.im\",\"name\":\"abyss\",\"url\":\"http://bash.im/abyss\",\"parsel\":\".text\",\"encoding\":\"windows-1251\",\"linkpar\":\"none\",\"desc\":\"Цитатник Рунета - Бездна\"}],[{\"site\":\"ithappens.me\",\"name\":\"ithappens\",\"url\":\"http://ithappens.me\",\"parsel\":\".text\",\"encoding\":\"UTF-8\",\"linkpar\":\"/story/\",\"desc\":\"IT Happens\"}],[{\"site\":\"zadolba.li\",\"name\":\"zadolbali\",\"url\":\"http://zadolba.li\",\"parsel\":\".text\",\"encoding\":\"UTF-8\",\"linkpar\":\"/story/\",\"desc\":\"Задолба!ли\"}],[{\"site\":\"anekdot.ru\",\"name\":\"new anekdot\",\"url\":\"http://www.anekdot.ru/last/j.html\",\"parsel\":\".text\",\"encoding\":\"windows-1251\",\"linkpar\":\"/id/\",\"desc\":\"Свежие анекдоты\"},{\"site\":\"anekdot.ru\",\"name\":\"new story\",\"url\":\"http://www.anekdot.ru/last/o.html\",\"parsel\":\".text\",\"encoding\":\"windows-1251\",\"linkpar\":\"/id/\",\"desc\":\"Новые истории\"},{\"site\":\"anekdot.ru\",\"name\":\"new aforizm\",\"url\":\"http://www.anekdot.ru/last/a.html\",\"parsel\":\".text\",\"encoding\":\"windows-1251\",\"linkpar\":\"/id/\",\"desc\":\"Новые афоризмы и фразы\"},{\"site\":\"anekdot.ru\",\"name\":\"new stihi\",\"url\":\"http://www.anekdot.ru/last/c.html\",\"parsel\":\".text\",\"encoding\":\"windows-1251\",\"linkpar\":\"/id/\",\"desc\":\"Стишки\"}],[{\"site\":\"ideer.ru\",\"name\":\"ideer\",\"url\":\"http://ideer.ru\",\"parsel\":\".shortContent\",\"encoding\":\"UTF-8\",\"linkpar\":\"/\",\"desc\":\"Подслушано\"}],[{\"site\":\"det.org.ru\",\"name\":\"Deti\",\"url\":\"http://det.org.ru\",\"parsel\":\".history\",\"encoding\":\"windows-1251\",\"linkpar\":\"/?quote=\",\"desc\":\"Говорят дети\"}],[{\"site\":\"xkcdb.com\",\"name\":\"XKCDB\",\"url\":\"http://www.xkcdb.com\",\"parsel\":\"span.quote\",\"encoding\":\"UTF-8\",\"linkpar\":\"/\",\"desc\":\"XKCDB\"}]]\n";
         ILogger logger = new LoggerConsole();
