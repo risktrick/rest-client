@@ -1,6 +1,9 @@
-package com.example.restclient;
+package com.example.restclient.model;
 
 import android.util.Log;
+
+import com.example.restclient.ILogger;
+import com.example.restclient.LoggerConsole;
 import com.example.restclient.model.JsonParser;
 import org.junit.Before;
 import org.junit.runner.RunWith;
