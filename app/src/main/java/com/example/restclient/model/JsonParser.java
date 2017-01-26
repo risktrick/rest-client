@@ -16,18 +16,16 @@ public class JsonParser {
         }
     }
 
-    public void parseOneTestModel(String response, ILogger logger){
+    public TestModel parseOneTestModel(String response){
         Gson gson = new Gson();
         TestModel model = gson.fromJson(response, TestModel.class);
-        logger.log(model.toString());
+        return model;
     }
 
-    public void parseArrayTestModel(String response, ILogger logger) {
+    public TestModel[] parseArrayTestModel(String response) {
         Gson gson = new Gson();
         TestModel[] models = gson.fromJson(response, TestModel[].class);
-        for (TestModel model : models) {
-            logger.log(model.toString());
-        }
+        return models;
     }
 
     public void parseArrayTestModelNewMethod(String response, ILogger logger) {

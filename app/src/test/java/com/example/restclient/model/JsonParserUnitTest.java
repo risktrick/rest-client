@@ -46,13 +46,28 @@ public class JsonParserUnitTest {
     @Test
     public void parseOneTestModel() {
         String response = "{name:\"John\", age:\"32\"}";
-        parser.parseOneTestModel(response, logger);
+        TestModel model= parser.parseOneTestModel(response);
+        assertEquals("John", model.name);
+        assertEquals("32", model.age);
+
+        logger.log(model.toString());
     }
 
     @Test
     public void parseArrayTestModel() throws Exception {
         String response = "[{name:\"John\", age:\"32\"}, {name:\"Mike\", age:\"45\"}]";
-        parser.parseArrayTestModelNewMethod(response, logger);
+        TestModel[] expected = {new TestModel("John", "32"), new TestModel("Mike", "45")};
+
+        TestModel[] models = parser.parseArrayTestModel(response);
+
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i].name, models[i].name);
+            assertEquals(expected[i].age, models[i].age);
+        }
+
+        for (TestModel model : models) {
+            logger.log(model.toString());
+        }
     }
 
     @Test
