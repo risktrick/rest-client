@@ -8,10 +8,19 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.restclient.MainActivity">
+    tools:context="com.example.restclient.main_screen.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/textViewSelectSource"
         android:text="Hello World!" />
+
+    <Button
+        android:text="Show Sources"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="185dp"
+        android:id="@+id/buttonShowSources" />
 </RelativeLayout>

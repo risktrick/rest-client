@@ -1,20 +1,31 @@
-package com.example.restclient;
+package com.example.restclient.main_screen;
 
-import android.app.Activity;
-import android.os.Bundle;
+import com.example.restclient.HttpHelper;
+import com.example.restclient.ILogger;
+import com.example.restclient.LoggerConsole;
 
-public class MainActivity extends Activity {
+public class MainPresenter {
 
     final String BASH_URL = "http://www.umori.li/api/get?site=bash.im&name=bash&num=100";
     final String UMORILI_SOURCE = "http://www.umori.li/api/sources";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    IMainActivity IMainActivity;
+    ILogger logger;
 
-        thread.start();
+    public MainPresenter(IMainActivity IMainActivity) {
+        this.IMainActivity = IMainActivity;
+        IMainActivity.setText("Hello from presenter :)");
+        logger = new LoggerConsole();
     }
+
+    void onClick() {
+
+        logger.log("will start thread here");
+
+        //if inet is turn on
+        //thread.start();
+    }
+
 
     private Thread thread = new Thread(new Runnable() {
         @Override
@@ -31,9 +42,5 @@ public class MainActivity extends Activity {
             }
         }
     });
-
-
-
-
 
 }
