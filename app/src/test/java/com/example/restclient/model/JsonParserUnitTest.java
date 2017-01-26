@@ -39,7 +39,8 @@ public class JsonParserUnitTest {
 
     @Test
     public void parseBashJson() throws Exception {
-
+        //parse response from final String BASH_URL = "http://www.umori.li/api/get?site=bash.im&name=bash&num=100";
+        //model class is BashModel
     }
 
     @Test
