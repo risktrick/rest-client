@@ -4,14 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.restclient.LoggerConsole;
 import com.example.restclient.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity implements IMainActivity {
@@ -20,7 +23,30 @@ public class MainActivity extends Activity implements IMainActivity {
     private TextView textViewSelectSource;
     private Button buttonGetSources;
     private LinearLayout layoutSources;
-    private Handler handler;
+
+
+    public static final int ADD_BUTTONS_IN_LAYOUT = 1;
+
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            LoggerConsole.getInstance().log("handleMessage");
+
+            if (msg.what == ADD_BUTTONS_IN_LAYOUT) {
+
+                if(msg.obj != null && msg.obj instanceof List){
+                    List<String> buttonNames = (List<String>) msg.obj;
+
+                    for (String buttonName : buttonNames) {
+                        Button button = new Button(MainActivity.this);
+                        button.setText(buttonName);
+                        layoutSources.addView(button);
+                    }
+                }
+            }
+            return false;
+        }
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +59,7 @@ public class MainActivity extends Activity implements IMainActivity {
             @Override
             public void onClick(View v) {
                 clickGetSources();
+                //addButtonsInLayout(new ArrayList<String>());
             }
         });
 
@@ -52,7 +79,7 @@ public class MainActivity extends Activity implements IMainActivity {
         if (textViewSelectSource != null) {
             textViewSelectSource.setText(text);
         } else {
-            Log.e("aa", "textViewSelectSource is null");
+            LoggerConsole.getInstance().log("textViewSelectSource is null");
         }
     }
 
@@ -63,20 +90,9 @@ public class MainActivity extends Activity implements IMainActivity {
 
     @Override
     public void addButtonsInLayout(final List<String> buttonNames) {
-
-        final Context context = MainActivity.this;
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                for (String buttonName : buttonNames) {
-                    Button button = new Button(context);
-                    button.setText(buttonName);
-                    layoutSources.addView(button);
-                }
-            }
-        });
-
-        //layoutSources
+        LoggerConsole.getInstance().log("MainActivity.addButtonsInLayout");
+        Message message = handler.obtainMessage(ADD_BUTTONS_IN_LAYOUT, buttonNames);
+        handler.sendMessage(message);
     }
 
 

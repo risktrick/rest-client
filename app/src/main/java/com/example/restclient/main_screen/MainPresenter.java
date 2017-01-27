@@ -29,7 +29,7 @@ public class MainPresenter {
         //thread.start();
 
 //        List<String> buttonNames = getSourceNames();
-//        mainActivity.addButtonsInLayout(buttonNames);
+//        mainActivity.ADD_BUTTONS_IN_LAYOUT(buttonNames);
 
         getAndShowSourceNames();
     }
@@ -50,19 +50,10 @@ public class MainPresenter {
                 buttonNames.add("bash");
                 buttonNames.add("kex");
 
-
                 mainActivity.addButtonsInLayout(buttonNames);
             }
         }).start();
-
-
-
     }
-
-    void addButtonsInLayout(List<String> buttonNames){
-
-    }
-
 
     private Thread thread = new Thread(new Runnable() {
         @Override
