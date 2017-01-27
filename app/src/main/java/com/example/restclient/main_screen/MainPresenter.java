@@ -1,13 +1,10 @@
 package com.example.restclient.main_screen;
 
-import android.os.Handler;
-
 import com.example.restclient.HttpHelper;
 import com.example.restclient.ILogger;
 import com.example.restclient.LoggerConsole;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainPresenter {
 
@@ -50,7 +47,7 @@ public class MainPresenter {
                 buttonNames.add("bash");
                 buttonNames.add("kex");
 
-                mainActivity.addButtonsInLayout(buttonNames);
+                mainActivity.signalAddButtonsInLayout(buttonNames);
             }
         }).start();
     }

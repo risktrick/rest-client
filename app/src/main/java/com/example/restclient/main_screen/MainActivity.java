@@ -27,26 +27,20 @@ public class MainActivity extends Activity implements IMainActivity {
 
     public static final int ADD_BUTTONS_IN_LAYOUT = 1;
 
-    private Handler handler = new Handler(new Handler.Callback() {
+    private Handler handler;
+    private Handler.Callback callback = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
             LoggerConsole.getInstance().log("handleMessage");
-
             if (msg.what == ADD_BUTTONS_IN_LAYOUT) {
-
                 if(msg.obj != null && msg.obj instanceof List){
                     List<String> buttonNames = (List<String>) msg.obj;
-
-                    for (String buttonName : buttonNames) {
-                        Button button = new Button(MainActivity.this);
-                        button.setText(buttonName);
-                        layoutSources.addView(button);
-                    }
+                    addButtonsInLayout(buttonNames);
                 }
             }
             return false;
         }
-    });
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +53,11 @@ public class MainActivity extends Activity implements IMainActivity {
             @Override
             public void onClick(View v) {
                 clickGetSources();
-                //addButtonsInLayout(new ArrayList<String>());
             }
         });
-
         layoutSources = (LinearLayout)findViewById(R.id.layoutSources);
 
-        handler = new Handler();
+        handler = new Handler(callback);
         presenter = new MainPresenter(this);
     }
 
@@ -89,11 +81,18 @@ public class MainActivity extends Activity implements IMainActivity {
     }
 
     @Override
-    public void addButtonsInLayout(final List<String> buttonNames) {
-        LoggerConsole.getInstance().log("MainActivity.addButtonsInLayout");
+    public void signalAddButtonsInLayout(final List<String> buttonNames) {
+        LoggerConsole.getInstance().log("MainActivity.signalAddButtonsInLayout");
         Message message = handler.obtainMessage(ADD_BUTTONS_IN_LAYOUT, buttonNames);
         handler.sendMessage(message);
     }
 
+    void addButtonsInLayout(List<String> buttonNames) {
+        for (String buttonName : buttonNames) {
+            Button button = new Button(MainActivity.this);
+            button.setText(buttonName);
+            layoutSources.addView(button);
+        }
+    }
 
 }

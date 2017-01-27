@@ -10,5 +10,5 @@ public interface IMainActivity {
 
     void clickGetSources();
 
-    void addButtonsInLayout(List<String> buttonNames);
+    void signalAddButtonsInLayout(List<String> buttonNames);
 }
