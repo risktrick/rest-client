@@ -1,6 +1,6 @@
 package com.example.restclient.main_screen;
 
-import com.example.restclient.HttpHelper;
+import com.example.restclient.network.HttpHelper;
 import com.example.restclient.ILogger;
 import com.example.restclient.LoggerConsole;
 
