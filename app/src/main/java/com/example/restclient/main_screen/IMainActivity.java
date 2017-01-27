@@ -1,5 +1,7 @@
 package com.example.restclient.main_screen;
 
+import com.example.restclient.model.SourceModel;
+
 import java.util.List;
 
 public interface IMainActivity {
@@ -10,5 +12,7 @@ public interface IMainActivity {
 
     void clickGetSources();
 
-    void signalAddButtonsInLayout(List<String> buttonNames);
+    void signalAddButtonsInLayout(List<SourceModel> buttonNames);
+
+    void showNetworkNotAvailable();
 }

@@ -67,6 +67,6 @@ public class SourceModel {
 
     @Override
     public String toString() {
-        return "ClassPojo [site = " + site + ", desc = " + desc + ", linkpar = " + linkpar + ", name = " + name + ", encoding = " + encoding + ", parsel = " + parsel + ", url = " + url + "]";
+        return "SourceModel [site = " + site + ", desc = " + desc + ", linkpar = " + linkpar + ", name = " + name + ", encoding = " + encoding + ", parsel = " + parsel + ", url = " + url + "]";
     }
 }

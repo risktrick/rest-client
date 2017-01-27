@@ -1,58 +1,44 @@
 package com.example.restclient.main_screen;
 
+import android.content.Context;
+
+import com.example.restclient.Utils;
+import com.example.restclient.model.ModelJsonParser;
+import com.example.restclient.model.SourceModel;
 import com.example.restclient.network.HttpHelper;
 import com.example.restclient.ILogger;
 import com.example.restclient.LoggerConsole;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainPresenter {
 
     final String BASH_URL = "http://www.umori.li/api/get?site=bash.im&name=bash&num=100";
     final String UMORILI_SOURCE = "http://www.umori.li/api/sources";
 
-    IMainActivity mainActivity;
+    IMainActivity iMainActivity;
     ILogger logger;
+    Context context;
 
     public MainPresenter(IMainActivity IMainActivity) {
-        this.mainActivity = IMainActivity;
+        this.iMainActivity = IMainActivity;
         IMainActivity.setText("Hello from presenter :)");
         logger = LoggerConsole.getInstance();
+        context = (Context) iMainActivity;
     }
 
     void clickGetSources() {
-        logger.log("will start thread here");
-        //if inet is turn on
-        //thread.start();
+        logger.log("will start threadGetSources here");
 
-//        List<String> buttonNames = getSourceNames();
-//        mainActivity.ADD_BUTTONS_IN_LAYOUT(buttonNames);
-
-        getAndShowSourceNames();
+        if (Utils.isNetworkAvailable(context)) {
+            threadGetSources.start();
+        } else {
+            iMainActivity.showNetworkNotAvailable();
+        }
     }
 
-    private void getAndShowSourceNames() {
-
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                ArrayList<String> buttonNames = new ArrayList<>();
-                buttonNames.add("bash");
-                buttonNames.add("kex");
-
-                mainActivity.signalAddButtonsInLayout(buttonNames);
-            }
-        }).start();
-    }
-
-    private Thread thread = new Thread(new Runnable() {
+    private Thread threadGetSources = new Thread(new Runnable() {
         @Override
         public void run() {
             HttpHelper httpHelper = new HttpHelper();
@@ -61,8 +47,20 @@ public class MainPresenter {
             if (response != null) {
                 logger.log(response);
 
-                //parseBashJson(response, logger);
-                //new JsonParser().parseSources(response, logger);
+                List<List<SourceModel>> sourceModelss = new ModelJsonParser().parseSources(response, logger);
+                List<SourceModel> reformattedSourceModels = new ArrayList<>();
+
+                for (List<SourceModel> sourceModels : sourceModelss) {
+                    for (SourceModel sourceModel : sourceModels) {
+                        reformattedSourceModels.add(sourceModel);
+                    }
+                }
+
+                for (SourceModel reformattedSourceModel : reformattedSourceModels) {
+                    logger.log(reformattedSourceModel.toString());
+                }
+
+                iMainActivity.signalAddButtonsInLayout(reformattedSourceModels);
             }
         }
     });

@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
-public class JsonParser {
+public class ModelJsonParser {
 
     void parseBashJson(String response, ILogger logger){
         Gson gson = new Gson();
@@ -46,13 +46,16 @@ public class JsonParser {
         }
     }
 
-    public void parseSources(String response, ILogger logger){
+    public List<List<SourceModel>> parseSources(String response, ILogger logger){
         Gson gson = new Gson();
         List<List<SourceModel>> modelss = gson.fromJson(response, new TypeToken<List<List<SourceModel>>>() {}.getType());
+
         for (List<SourceModel> models : modelss) {
             for (SourceModel sourceModel : models) {
                 logger.log(sourceModel.toString());
             }
         }
+
+        return modelss;
     }
 }
