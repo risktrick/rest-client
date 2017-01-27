@@ -34,7 +34,7 @@ public class JsonParserUnitTest {
         });
 
         parser = new JsonParser();
-        logger = new LoggerConsole();
+        logger = LoggerConsole.getInstance();
     }
 
     @Test

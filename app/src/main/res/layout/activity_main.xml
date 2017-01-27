@@ -10,17 +10,38 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.restclient.main_screen.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewSelectSource"
-        android:text="Hello World!" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
-    <Button
-        android:text="Show Sources"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="185dp"
-        android:id="@+id/buttonShowSources" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewGetSources"
+            android:text="Press for get sources of site http://umorili.ru" />
+
+        <Button
+            android:text="Show Sources"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonGetSources" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Source list:" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/layoutSources"
+                android:orientation="vertical" />
+        </ScrollView>
+    </LinearLayout>
 </RelativeLayout>
