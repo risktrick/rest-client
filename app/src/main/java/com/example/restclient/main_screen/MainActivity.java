@@ -20,7 +20,8 @@ public class MainActivity extends Activity implements IMainActivity {
 
     public static final int ADD_BUTTONS_IN_LAYOUT = 1;
     public static final int SHOW_PROGRESS_BAR = 2;
-    private static final int SHOW_NETWORK_ERROR = 3;
+    public static final int HIDE_PROGRESS_BAR = 3;
+    private static final int SHOW_NETWORK_ERROR = 4;
 
     private MainPresenter presenter;
     private TextView textViewSelectSource;
@@ -42,6 +43,8 @@ public class MainActivity extends Activity implements IMainActivity {
                     e.printStackTrace();
                 }
             } else if (msg.what == SHOW_PROGRESS_BAR) {
+                // TODO: 27.01.17 add progress bar
+            } else if (msg.what == HIDE_PROGRESS_BAR){
                 // TODO: 27.01.17 add progress bar
             } else if (msg.what == SHOW_NETWORK_ERROR) {
                 Toast.makeText(MainActivity.this, "Network is not available. Check the connection.", Toast.LENGTH_LONG).show();

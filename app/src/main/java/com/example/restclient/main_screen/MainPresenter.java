@@ -48,13 +48,7 @@ public class MainPresenter {
                 logger.log(response);
 
                 List<List<SourceModel>> sourceModelss = new ModelJsonParser().parseSources(response, logger);
-                List<SourceModel> reformattedSourceModels = new ArrayList<>();
-
-                for (List<SourceModel> sourceModels : sourceModelss) {
-                    for (SourceModel sourceModel : sourceModels) {
-                        reformattedSourceModels.add(sourceModel);
-                    }
-                }
+                List<SourceModel> reformattedSourceModels = reformatSourceModels(sourceModelss);
 
                 for (SourceModel reformattedSourceModel : reformattedSourceModels) {
                     logger.log(reformattedSourceModel.toString());
@@ -64,5 +58,18 @@ public class MainPresenter {
             }
         }
     });
+
+    List<SourceModel> reformatSourceModels(List<List<SourceModel>> sourceModelss) {
+        List<SourceModel> reformattedSourceModels = new ArrayList<>();
+
+        for (List<SourceModel> sourceModels : sourceModelss) {
+            for (SourceModel sourceModel : sourceModels) {
+                reformattedSourceModels.add(sourceModel);
+            }
+        }
+
+        return reformattedSourceModels;
+    }
+
 
 }
