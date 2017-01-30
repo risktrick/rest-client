@@ -1,5 +1,8 @@
 package com.example.restclient;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,5 +32,10 @@ public class Utils {
             }
         }
         return sb.toString();
+    }
+
+    public static boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }

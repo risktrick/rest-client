@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.example.restclient.ILogger;
 import com.example.restclient.LoggerConsole;
-import com.example.restclient.model.JsonParser;
+
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.invocation.InvocationOnMock;
@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 @PrepareForTest({Log.class})
 public class JsonParserUnitTest {
 
-    JsonParser parser;
+    ModelJsonParser parser;
     ILogger logger;
 
     @Before
@@ -33,8 +33,13 @@ public class JsonParserUnitTest {
             }
         });
 
-        parser = new JsonParser();
-        logger = new LoggerConsole();
+        parser = new ModelJsonParser();
+        logger = LoggerConsole.getInstance();
+    }
+
+    @Test
+    public void checkLogger() {
+        assertNotNull("logger == null", logger);
     }
 
     @Test

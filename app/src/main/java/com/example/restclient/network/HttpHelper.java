@@ -1,4 +1,6 @@
-package com.example.restclient;
+package com.example.restclient.network;
+
+import com.example.restclient.Utils;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -10,7 +12,7 @@ public class HttpHelper {
     /*
     *   Needs background thread for work
     * */
-    String openUrl(String urlStr){
+    public String openUrl(String urlStr){
         HttpURLConnection urlConnection = null;
         try {
             URL url = new URL(urlStr);

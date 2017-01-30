@@ -1,4 +1,4 @@
-package com.example.restclient;
+package com.example.restclient.network;
 
 import android.content.Context;
 
@@ -8,6 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.restclient.ILogger;
 
 public class VolleyHelper {
 
