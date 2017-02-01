@@ -1,6 +1,7 @@
 package com.example.restclient.main_screen;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.restclient.LoggerConsole;
 import com.example.restclient.R;
+import com.example.restclient.bash_screen.BashActivity;
 import com.example.restclient.model.SourceModel;
 
 import java.util.List;
@@ -86,7 +88,8 @@ public class MainActivity extends Activity implements IMainActivity {
     @Override
     public void clickGetSources() {
         //presenter.clickGetSources();
-        presenter.getBashJokes();
+
+        startActivity(new Intent(this, BashActivity.class));
     }
 
     @Override
