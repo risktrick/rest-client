@@ -85,7 +85,8 @@ public class MainActivity extends Activity implements IMainActivity {
 
     @Override
     public void clickGetSources() {
-        presenter.clickGetSources();
+        //presenter.clickGetSources();
+        presenter.getBashJokes();
     }
 
     @Override

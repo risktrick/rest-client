@@ -3,6 +3,7 @@ package com.example.restclient.main_screen;
 import android.content.Context;
 
 import com.example.restclient.Utils;
+import com.example.restclient.model.BashModel;
 import com.example.restclient.model.ModelJsonParser;
 import com.example.restclient.model.SourceModel;
 import com.example.restclient.network.HttpHelper;
@@ -65,4 +66,25 @@ public class MainPresenter {
         }
     });
 
+    public void getBashJokes() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpHelper httpHelper = new HttpHelper();
+                String request = "http://www.umori.li/api/get?" + "site=bash.im";
+                String response = httpHelper.openUrl(request);
+                logger.log("response len " + response.length());
+
+                if (response != null) {
+                    BashModel[] bashModels = new ModelJsonParser().parseBash(response);
+
+                    for (BashModel bashModel : bashModels) {
+                        logger.log(bashModel.toString());
+                    }
+                } else {
+                    logger.log("error");
+                }
+            }
+        }).start();
+    }
 }
