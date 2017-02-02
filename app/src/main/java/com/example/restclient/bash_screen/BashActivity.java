@@ -17,7 +17,7 @@ public class BashActivity extends Activity implements IBashActivity{
 
     private LinearLayout layoutBash;
     private BashPresenter presenter;
-    Handler handler = new Handler();
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,32 +25,27 @@ public class BashActivity extends Activity implements IBashActivity{
         setContentView(R.layout.activity_bash);
 
         layoutBash = (LinearLayout)findViewById(R.id.layoutBash);
-        presenter = new BashPresenter(this);
+        handler = new Handler();
+        presenter = new BashPresenter(this, handler);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         presenter.getBashJokes();
     }
 
     @Override
     public void addTextViewsToListView(final BashModel[] bashModels) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < bashModels.length; i++) {
-                    TextView textView = new TextView(BashActivity.this);
-                    textView.setText(bashModels[i].elementPureHtml);
+        for (int i = 0; i < bashModels.length; i++) {
+            TextView textView = new TextView(BashActivity.this);
+            textView.setText(bashModels[i].elementPureHtml);
 
-                    if (i%2==0) {
-                        textView.setTextColor(Color.BLUE);
-                    }
-
-                    layoutBash.addView(textView);
-                }
+            if (i % 2 == 0) {
+                textView.setTextColor(Color.BLUE);
             }
-        });
+
+            layoutBash.addView(textView);
+        }
     }
 }
