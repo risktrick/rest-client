@@ -5,4 +5,6 @@ import com.example.restclient.model.BashModel;
 
 public interface IBashActivity {
     void addTextViewsToListView(BashModel[] bashModels);
+
+    void showError();
 }

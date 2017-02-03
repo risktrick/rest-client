@@ -26,7 +26,7 @@ public class BashActivity extends Activity implements IBashActivity{
 
         layoutBash = (LinearLayout)findViewById(R.id.layoutBash);
         handler = new Handler();
-        presenter = new BashPresenter(this, handler);
+        presenter = new BashPresenter(this);
     }
 
     @Override
@@ -47,5 +47,10 @@ public class BashActivity extends Activity implements IBashActivity{
 
             layoutBash.addView(textView);
         }
+    }
+
+    @Override
+    public void showError() {
+
     }
 }

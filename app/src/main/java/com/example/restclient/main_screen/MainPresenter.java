@@ -7,52 +7,47 @@ import com.example.restclient.model.ModelJsonParser;
 import com.example.restclient.model.SourceModel;
 import com.example.restclient.ILogger;
 import com.example.restclient.LoggerConsole;
-import com.example.restclient.network.NetworkResultReceiver;
-import com.example.restclient.network.NetworkThread;
+import com.example.restclient.network.VolleyHelper;
+import com.example.restclient.network.VolleyResultReceiver;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainPresenter implements NetworkResultReceiver{
+public class MainPresenter implements VolleyResultReceiver{
 
     private final String BASH_URL = "http://www.umori.li/api/get?site=bash.im&name=bash&num=100";
     private final String UMORILI_SOURCES = "http://www.umori.li/api/sources";
+    private final VolleyHelper volleyHelper;
 
     private IMainActivity iMainActivity;
     private ILogger logger;
     private Context context;
-    private NetworkThread networkThread;
 
     public MainPresenter(IMainActivity IMainActivity) {
         this.iMainActivity = IMainActivity;
         logger = LoggerConsole.getInstance();
-        context = (Context) iMainActivity;
 
-        networkThread = new NetworkThread("main_presenter_thread");
-        networkThread.setResultReceiver(this);
-        networkThread.start();
-        networkThread.getLooper();
+        context = (Context) iMainActivity;
+        volleyHelper = new VolleyHelper(context);
     }
 
     void clickGetSources() {
-        logger.log("will start threadGetSources here");
-
         if (Utils.isNetworkAvailable(context)) {
-            networkThread.makeGetRequest(UMORILI_SOURCES);
+            volleyHelper.requestUsingVolley(UMORILI_SOURCES, this);
         } else {
-            iMainActivity.showNetworkNotAvailable();
+            iMainActivity.showError("Network is not available. Check the connection.");
         }
     }
 
     @Override
-    public void onGettingResults(String response) {
+    public void onGettingResponse(String response) {
         if (response != null) {
             logger.log(response);
 
             List<List<SourceModel>> sourceModelss = new ModelJsonParser().parseSources(response, logger);
             List<SourceModel> reformattedSourceModels = reformatSourceModels(sourceModelss);
 
-            iMainActivity.signalAddButtonsInLayout(reformattedSourceModels);
+            iMainActivity.addButtonsInLayout(reformattedSourceModels);
         }
     }
 
@@ -64,7 +59,11 @@ public class MainPresenter implements NetworkResultReceiver{
                 reformattedSourceModels.add(sourceModel);
             }
         }
-
         return reformattedSourceModels;
+    }
+
+    @Override
+    public void onGettingError(String response) {
+        iMainActivity.showError(response);
     }
 }

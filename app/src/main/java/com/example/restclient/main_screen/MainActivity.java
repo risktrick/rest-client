@@ -20,40 +20,10 @@ import java.util.List;
 
 public class MainActivity extends Activity implements IMainActivity {
 
-    public static final int ADD_BUTTONS_IN_LAYOUT = 1;
-    public static final int SHOW_PROGRESS_BAR = 2;
-    public static final int HIDE_PROGRESS_BAR = 3;
-    private static final int SHOW_NETWORK_ERROR = 4;
-
     private MainPresenter presenter;
     private TextView textViewSelectSource;
     private Button buttonGetSources;
     private LinearLayout layoutSources;
-
-    private Handler handler;
-    private Handler.Callback callback = new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            LoggerConsole.getInstance().log("handleMessage");
-            if (msg.what == ADD_BUTTONS_IN_LAYOUT) {
-                try{
-                    // TODO: 27.01.17 check casting
-                    List<SourceModel> sourceModels = (List<SourceModel>) msg.obj;
-                    addButtonsInLayout(sourceModels);
-                }catch (Exception e) {
-                    LoggerConsole.getInstance().log(e.toString());
-                    e.printStackTrace();
-                }
-            } else if (msg.what == SHOW_PROGRESS_BAR) {
-                // TODO: 27.01.17 add progress bar
-            } else if (msg.what == HIDE_PROGRESS_BAR){
-                // TODO: 27.01.17 add progress bar
-            } else if (msg.what == SHOW_NETWORK_ERROR) {
-                Toast.makeText(MainActivity.this, "Network is not available. Check the connection.", Toast.LENGTH_LONG).show();
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +40,6 @@ public class MainActivity extends Activity implements IMainActivity {
         });
         layoutSources = (LinearLayout)findViewById(R.id.layoutSources);
 
-        handler = new Handler(callback);
         presenter = new MainPresenter(this);
     }
 
@@ -90,24 +59,19 @@ public class MainActivity extends Activity implements IMainActivity {
 
     @Override
     public void clickGetSources() {
-        //presenter.clickGetSources();
-
-        startActivity(new Intent(this, BashActivity.class));
+        presenter.clickGetSources();
+        //startActivity(new Intent(this, BashActivity.class));
     }
 
     @Override
-    public void signalAddButtonsInLayout(final List<SourceModel> buttonNames) {
-        LoggerConsole.getInstance().log("MainActivity.signalAddButtonsInLayout");
-        Message message = handler.obtainMessage(ADD_BUTTONS_IN_LAYOUT, buttonNames);
-        handler.sendMessage(message);
+    public void showError(String errorStr) {
+        if (errorStr == null) {
+            Toast.makeText(MainActivity.this, errorStr, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
-    public void showNetworkNotAvailable() {
-        handler.sendEmptyMessage(SHOW_NETWORK_ERROR);
-    }
-
-    void addButtonsInLayout(List<SourceModel> sourceModels) {
+    public void addButtonsInLayout(List<SourceModel> sourceModels) {
         for (SourceModel sourceModel : sourceModels) {
             Button button = new Button(MainActivity.this);
             button.setText(sourceModel.getDesc());

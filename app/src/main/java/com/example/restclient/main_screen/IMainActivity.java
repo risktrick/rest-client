@@ -12,7 +12,7 @@ public interface IMainActivity {
 
     void clickGetSources();
 
-    void signalAddButtonsInLayout(List<SourceModel> buttonNames);
+    void addButtonsInLayout(List<SourceModel> buttonNames);
 
-    void showNetworkNotAvailable();
+    void showError(String errorStr);
 }
