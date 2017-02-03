@@ -58,4 +58,10 @@ public class ModelJsonParser {
 
         return modelss;
     }
+
+    public BashModel[] parseBash(String response) {
+        Gson gson = new Gson();
+        BashModel[] models = gson.fromJson(response, BashModel[].class);
+        return models;
+    }
 }
