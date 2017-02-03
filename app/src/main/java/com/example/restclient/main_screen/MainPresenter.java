@@ -45,14 +45,14 @@ public class MainPresenter implements VolleyResultReceiver{
             logger.log(response);
 
             List<List<SourceModel>> sourceModelss = new ModelJsonParser().parseSources(response, logger);
-            List<SourceModel> reformattedSourceModels = reformatSourceModels(sourceModelss);
+            ArrayList<SourceModel> reformattedSourceModels = reformatSourceModels(sourceModelss);
 
             iMainActivity.addButtonsInLayout(reformattedSourceModels);
         }
     }
 
-    List<SourceModel> reformatSourceModels(List<List<SourceModel>> sourceModelss) {
-        List<SourceModel> reformattedSourceModels = new ArrayList<>();
+    ArrayList<SourceModel> reformatSourceModels(List<List<SourceModel>> sourceModelss) {
+        ArrayList<SourceModel> reformattedSourceModels = new ArrayList<>();
 
         for (List<SourceModel> sourceModels : sourceModelss) {
             for (SourceModel sourceModel : sourceModels) {

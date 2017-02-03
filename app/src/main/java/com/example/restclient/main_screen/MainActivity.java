@@ -16,14 +16,18 @@ import com.example.restclient.R;
 import com.example.restclient.bash_screen.BashActivity;
 import com.example.restclient.model.SourceModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity implements IMainActivity {
+
+    private static final String KEY_SOURCE_MODELS = "KEY_SOURCE_MODELS";
 
     private MainPresenter presenter;
     private TextView textViewSelectSource;
     private Button buttonGetSources;
     private LinearLayout layoutSources;
+    private ArrayList<SourceModel> sourceModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,11 @@ public class MainActivity extends Activity implements IMainActivity {
         layoutSources = (LinearLayout)findViewById(R.id.layoutSources);
 
         presenter = new MainPresenter(this);
+
+        if (savedInstanceState != null) {
+            sourceModels = (ArrayList<SourceModel>) savedInstanceState.getSerializable(KEY_SOURCE_MODELS);
+            updateButtonsInLayout();
+        }
     }
 
     @Override
@@ -71,7 +80,14 @@ public class MainActivity extends Activity implements IMainActivity {
     }
 
     @Override
-    public void addButtonsInLayout(List<SourceModel> sourceModels) {
+    public void addButtonsInLayout(ArrayList<SourceModel> sourceModels) {
+        this.sourceModels = sourceModels;
+        if (this.sourceModels != null) {
+            updateButtonsInLayout();
+        }
+    }
+
+    void updateButtonsInLayout(){
         for (SourceModel sourceModel : sourceModels) {
             Button button = new Button(MainActivity.this);
             button.setText(sourceModel.getDesc());
@@ -79,4 +95,10 @@ public class MainActivity extends Activity implements IMainActivity {
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable(KEY_SOURCE_MODELS, sourceModels);
+    }
 }

@@ -1,6 +1,8 @@
 package com.example.restclient.model;
 
-public class SourceModel {
+import java.io.Serializable;
+
+public class SourceModel implements Serializable{
     private String site;
     private String desc;
     private String linkpar;

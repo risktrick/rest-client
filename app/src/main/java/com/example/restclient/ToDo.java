@@ -4,8 +4,6 @@ public class ToDo {
 
     /*
     *
-    *   Use volley
-    *
     *   Two orientation
     *
     * */

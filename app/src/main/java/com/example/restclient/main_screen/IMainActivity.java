@@ -2,6 +2,7 @@ package com.example.restclient.main_screen;
 
 import com.example.restclient.model.SourceModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IMainActivity {
@@ -12,7 +13,7 @@ public interface IMainActivity {
 
     void clickGetSources();
 
-    void addButtonsInLayout(List<SourceModel> buttonNames);
+    void addButtonsInLayout(ArrayList<SourceModel> buttonNames);
 
     void showError(String errorStr);
 }
