@@ -68,8 +68,8 @@ public class MainActivity extends Activity implements IMainActivity {
 
     @Override
     public void clickGetSources() {
-        presenter.clickGetSources();
-        //startActivity(new Intent(this, BashActivity.class));
+        //presenter.clickGetSources();
+        startActivity(new Intent(this, BashActivity.class));
     }
 
     @Override
