@@ -3,21 +3,22 @@ package com.example.restclient.main_screen;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.restclient.LoggerConsole;
+import com.example.restclient.MainApplication;
+import com.example.restclient.utils.ILogger;
+import com.example.restclient.utils.LoggerConsole;
 import com.example.restclient.R;
 import com.example.restclient.bash_screen.BashActivity;
 import com.example.restclient.model.SourceModel;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import javax.inject.Inject;
 
 public class MainActivity extends Activity implements IMainActivity {
 
@@ -29,10 +30,15 @@ public class MainActivity extends Activity implements IMainActivity {
     private LinearLayout layoutSources;
     private ArrayList<SourceModel> sourceModels;
 
+    @Inject
+    ILogger logger;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MainApplication.getComponent().inject(this);
 
         textViewSelectSource = (TextView) findViewById(R.id.textViewGetSources);
         buttonGetSources = (Button) findViewById(R.id.buttonGetSources);
@@ -62,7 +68,7 @@ public class MainActivity extends Activity implements IMainActivity {
         if (textViewSelectSource != null) {
             textViewSelectSource.setText(text);
         } else {
-            LoggerConsole.getInstance().log("textViewSelectSource is null");
+            logger.log("textViewSelectSource is null");
         }
     }
 

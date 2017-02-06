@@ -1,6 +1,6 @@
 package com.example.restclient.network;
 
-import com.example.restclient.Utils;
+import com.example.restclient.utils.Utils;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;

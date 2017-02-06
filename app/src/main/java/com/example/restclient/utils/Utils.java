@@ -1,4 +1,4 @@
-package com.example.restclient;
+package com.example.restclient.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

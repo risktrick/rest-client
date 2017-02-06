@@ -8,6 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.restclient.utils.ILogger;
 
 /*
 * Responses are always delivered on the main thread.
@@ -18,9 +19,11 @@ import com.android.volley.toolbox.Volley;
 public class VolleyHelper {
     private final RequestQueue queue;
     private final Object tag = "tag";
+    private ILogger logger;
 
-    public VolleyHelper(Context context) {
+    public VolleyHelper(Context context, ILogger logger) {
         queue = Volley.newRequestQueue(context);
+        this.logger = logger;
     }
 
     public void requestUsingVolley(String urlString, final VolleyResultReceiver receiver){
@@ -39,6 +42,7 @@ public class VolleyHelper {
 
         stringRequest.setTag(tag); //for canceling all with this tag
         queue.add(stringRequest);
+        logger.log(stringRequest.toString());
     }
 
     public void cancelAll() {

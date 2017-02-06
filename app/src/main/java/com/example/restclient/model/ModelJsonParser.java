@@ -1,6 +1,6 @@
 package com.example.restclient.model;
 
-import com.example.restclient.ILogger;
+import com.example.restclient.utils.ILogger;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

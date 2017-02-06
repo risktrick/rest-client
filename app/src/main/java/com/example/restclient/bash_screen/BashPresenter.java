@@ -1,28 +1,29 @@
 package com.example.restclient.bash_screen;
 
 import android.content.Context;
-import android.os.Handler;
 
-import com.example.restclient.LoggerConsole;
+import com.example.restclient.MainApplication;
+import com.example.restclient.utils.ILogger;
+import com.example.restclient.utils.LoggerConsole;
 import com.example.restclient.model.BashModel;
 import com.example.restclient.model.ModelJsonParser;
-import com.example.restclient.network.NetworkResultReceiver;
-import com.example.restclient.network.NetworkThread;
 import com.example.restclient.network.VolleyHelper;
 import com.example.restclient.network.VolleyResultReceiver;
 
+import javax.inject.Inject;
+
 public class BashPresenter implements VolleyResultReceiver {
 
+    @Inject
+    public ILogger logger;
+    @Inject
+    public VolleyHelper volleyHelper;
+
     private final IBashActivity iBashActivity;
-    private final LoggerConsole logger;
-    private final VolleyHelper volleyHelper;
 
     public BashPresenter(IBashActivity iBashActivity) {
         this.iBashActivity = iBashActivity;
-        logger = LoggerConsole.getInstance();
-
-        Context context = (Context) iBashActivity;
-        volleyHelper = new VolleyHelper(context);
+        MainApplication.getComponent().inject(this);
     }
 
     public void getBashJokes() {

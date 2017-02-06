@@ -2,8 +2,8 @@ package com.example.restclient.model;
 
 import android.util.Log;
 
-import com.example.restclient.ILogger;
-import com.example.restclient.LoggerConsole;
+import com.example.restclient.utils.ILogger;
+import com.example.restclient.utils.LoggerConsole;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;

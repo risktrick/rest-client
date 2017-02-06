@@ -2,36 +2,41 @@ package com.example.restclient.main_screen;
 
 import android.content.Context;
 
-import com.example.restclient.Utils;
+import com.example.restclient.MainApplication;
+import com.example.restclient.utils.Utils;
 import com.example.restclient.model.ModelJsonParser;
 import com.example.restclient.model.SourceModel;
-import com.example.restclient.ILogger;
-import com.example.restclient.LoggerConsole;
+import com.example.restclient.utils.ILogger;
+import com.example.restclient.utils.LoggerConsole;
 import com.example.restclient.network.VolleyHelper;
 import com.example.restclient.network.VolleyResultReceiver;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class MainPresenter implements VolleyResultReceiver{
 
     private final String BASH_URL = "http://www.umori.li/api/get?site=bash.im&name=bash&num=100";
     private final String UMORILI_SOURCES = "http://www.umori.li/api/sources";
-    private final VolleyHelper volleyHelper;
 
     private IMainActivity iMainActivity;
-    private ILogger logger;
-    private Context context;
+
+    @Inject
+    public ILogger logger;
+    @Inject
+    public VolleyHelper volleyHelper;
+    @Inject
+    public Context context;
 
     public MainPresenter(IMainActivity IMainActivity) {
         this.iMainActivity = IMainActivity;
-        logger = LoggerConsole.getInstance();
-
-        context = (Context) iMainActivity;
-        volleyHelper = new VolleyHelper(context);
+        MainApplication.getComponent().inject(this);
     }
 
     void clickGetSources() {
+        logger.log("clickGetSources");
         if (Utils.isNetworkAvailable(context)) {
             volleyHelper.requestUsingVolley(UMORILI_SOURCES, this);
         } else {
