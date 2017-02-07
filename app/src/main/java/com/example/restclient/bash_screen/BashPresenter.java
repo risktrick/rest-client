@@ -47,7 +47,7 @@ public class BashPresenter implements VolleyResultReceiver {
         iBashActivity.showError();
     }
 
-    void parseResponse(String response) {
+    private void parseResponse(String response) {
         final BashModel[] bashModels = new ModelJsonParser().parseBash(response);
         for (BashModel bashModel : bashModels) {
             logger.log(bashModel.toString());

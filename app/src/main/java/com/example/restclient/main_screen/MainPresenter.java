@@ -24,18 +24,18 @@ public class MainPresenter implements VolleyResultReceiver{
     private IMainActivity iMainActivity;
 
     @Inject
-    public ILogger logger;
+    ILogger logger;
     @Inject
-    public VolleyHelper volleyHelper;
+    VolleyHelper volleyHelper;
     @Inject
-    public Context context;
+    Context context;
 
     public MainPresenter(IMainActivity IMainActivity) {
         this.iMainActivity = IMainActivity;
         MainApplication.getComponent().inject(this);
     }
 
-    void clickGetSources() {
+    public void clickGetSources() {
         logger.log("clickGetSources");
         if (Utils.isNetworkAvailable(context)) {
             volleyHelper.requestUsingVolley(UMORILI_SOURCES, this);
@@ -56,7 +56,7 @@ public class MainPresenter implements VolleyResultReceiver{
         }
     }
 
-    ArrayList<SourceModel> reformatSourceModels(List<List<SourceModel>> sourceModelss) {
+    private ArrayList<SourceModel> reformatSourceModels(List<List<SourceModel>> sourceModelss) {
         ArrayList<SourceModel> reformattedSourceModels = new ArrayList<>();
 
         for (List<SourceModel> sourceModels : sourceModelss) {

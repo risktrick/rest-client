@@ -14,6 +14,8 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.junit.Test;
 
+import javax.inject.Inject;
+
 import static org.junit.Assert.*;
 
 @RunWith(PowerMockRunner.class)
@@ -34,18 +36,12 @@ public class ModelJsonParserUnitTest {
         });
 
         parser = new ModelJsonParser();
-        logger = LoggerConsole.getInstance();
+        logger = new LoggerConsole();
     }
 
     @Test
     public void checkLogger() {
         assertNotNull("logger == null", logger);
-    }
-
-    @Test
-    public void parseBashJson() throws Exception {
-        //parse response from final String BASH_URL = "http://www.umori.li/api/get?site=bash.im&name=bash&num=100";
-        //model class is BashModel
     }
 
     @Test
