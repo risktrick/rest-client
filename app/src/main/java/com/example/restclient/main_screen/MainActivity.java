@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.example.restclient.MainApplication;
 import com.example.restclient.utils.ILogger;
-import com.example.restclient.utils.LoggerConsole;
 import com.example.restclient.R;
 import com.example.restclient.bash_screen.BashActivity;
 import com.example.restclient.model.SourceModel;
@@ -20,18 +19,20 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends Activity implements IMainActivity {
 
-    private static final String KEY_SOURCE_MODELS = "KEY_SOURCE_MODELS";
+    static final String KEY_SOURCE_MODELS = "KEY_SOURCE_MODELS";
 
-    private MainPresenter presenter;
-    private TextView textViewSelectSource;
-    private Button buttonGetSources;
-    private LinearLayout layoutSources;
-    private ArrayList<SourceModel> sourceModels;
+    @BindView(R.id.textViewGetSources) TextView textViewGetSources;
+    @BindView(R.id.buttonGetSources) Button buttonGetSources;
+    @BindView(R.id.layoutSources) LinearLayout layoutSources;
 
-    @Inject
-    ILogger logger;
+    ArrayList<SourceModel> sourceModels;
+    MainPresenter presenter;
+    @Inject ILogger logger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +40,14 @@ public class MainActivity extends Activity implements IMainActivity {
         setContentView(R.layout.activity_main);
 
         MainApplication.getComponent().inject(this);
+        ButterKnife.bind(this);
 
-        textViewSelectSource = (TextView) findViewById(R.id.textViewGetSources);
-        buttonGetSources = (Button) findViewById(R.id.buttonGetSources);
         buttonGetSources.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickGetSources();
             }
         });
-        layoutSources = (LinearLayout)findViewById(R.id.layoutSources);
-
         presenter = new MainPresenter(this);
 
         if (savedInstanceState != null) {
@@ -60,22 +58,22 @@ public class MainActivity extends Activity implements IMainActivity {
 
     @Override
     public String getText() {
-        return textViewSelectSource != null ? textViewSelectSource.getText().toString() : null;
+        return textViewGetSources != null ? textViewGetSources.getText().toString() : null;
     }
 
     @Override
     public void setText(String text) {
-        if (textViewSelectSource != null) {
-            textViewSelectSource.setText(text);
+        if (textViewGetSources != null) {
+            textViewGetSources.setText(text);
         } else {
-            logger.log("textViewSelectSource is null");
+            logger.log("textViewGetSources is null");
         }
     }
 
     @Override
     public void clickGetSources() {
-        //presenter.clickGetSources();
-        startActivity(new Intent(this, BashActivity.class));
+        presenter.clickGetSources();
+        //startActivity(new Intent(this, BashActivity.class));
     }
 
     @Override
